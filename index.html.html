@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Bimbel AMMA</title>
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #4a90e2, #50c9ce);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.login-box {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 90%;
+  max-width: 360px;
+  padding: 30px 25px;
+  text-align: center;
+}
+h2 { margin-bottom: 25px; color: #333; }
+input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ccc; font-size: 15px; }
+button { background-color: #50c9ce; color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+button:hover { background-color: #4a90e2; }
+p { margin-top: 12px; color: red; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="login-box">
+  <h2>Login Bimbel AMMA 📚</h2>
+  <input type="text" id="username" placeholder="Masukkan Username">
+  <input type="password" id="password" placeholder="Masukkan Password">
+  <button onclick="login()">Masuk</button>
+  <p id="error"></p>
+</div>
+<script>
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+  const error = document.getElementById("error");
+  if(user === "dedek" && pass === "12345") {
+    localStorage.setItem("username", user);
+    window.location.href = "portal.html";
+  } else {
+    error.textContent = "Username atau password salah!";
+  }
+}
+</script>
+</body>
+</html>

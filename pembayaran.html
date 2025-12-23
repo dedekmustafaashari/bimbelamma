@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembayaran Bimbel - Portal Bimbel AMMA</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+    }
+    header { background-color: #2e86de; color: white; text-align: center; padding: 15px; }
+    nav { background: #333; padding: 12px; display: flex; justify-content: center; gap: 20px; }
+    nav a { color: white; text-decoration: none; font-weight: 600; padding: 8px 12px; border-radius: 6px; transition: 0.3s; }
+    nav a:hover { background: #2e86de; }
+    main { padding: 30px; }
+    .form-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+    select, input { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #ccc; }
+    button { background: #2e86de; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; transition: 0.3s; font-weight: bold; margin-right: 5px; }
+    button:hover { background: #1b66c9; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+    th, td { border-bottom: 1px solid #ddd; padding: 12px; text-align: center; }
+    th { background-color: #2e86de; color: white; }
+    tr:hover { background-color: #f1f1f1; }
+    .lunas { color: green; font-weight: bold; }
+    .belum { color: red; font-weight: bold; }
+    footer { margin-top: 40px; background: #333; color: white; text-align: center; padding: 10px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>💰 Pembayaran Bimbel AMMA</h1>
+</header>
+
+<nav>
+  <a href="index.html">🏠 Beranda</a>
+  <a href="data-siswa.html">👨‍🎓 Data Siswa</a>
+  <a href="pembayaran.html">💰 Pembayaran</a>
+  <a href="profile.html">👤 Profil</a>
+  <a href="#" onclick="logout()">🚪 Logout</a>
+</nav>
+
+<main>
+  <h2>Catat & Kelola Pembayaran</h2>
+
+  <div class="form-container">
+    <select id="namaSiswa">
+      <option value="">-- Pilih Siswa --</option>
+    </select>
+    <input type="text" id="bulan" placeholder="Bulan (contoh: Oktober)">
+    <input type="number" id="jumlah" placeholder="Jumlah Bayar (Rp)">
+    <select id="statusBayar">
+      <option value="Lunas">Lunas</option>
+      <option value="Belum Lunas">Belum Lunas</option>
+    </select>
+    <button onclick="simpanPembayaran()">💾 Simpan</button>
+    <button onclick="exportCSV()" style="background:green;">📁 Export Excel</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama Siswa</th>
+        <th>Bulan</th>
+        <th>Jumlah (Rp)</th>
+        <th>Status</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="tabelPembayaran"></tbody>
+  </table>
+</main>
+
+<footer>
+  <p>© 2025 Bimbel AMMA | Pembayaran Terhubung ke Data Siswa</p>
+</footer>
+
+<script>
+  // Cek login
+  const username = localStorage.getItem("username");
+  if (!username) window.location.href = "login.html";
+
+  // Ambil data siswa
+  const dataSiswa = JSON.parse(localStorage.getItem("dataSiswa")) || [];
+  const selectSiswa = document.getElementById("namaSiswa");
+  
+  function updateDropdown() {
+    selectSiswa.innerHTML = '<option value="">-- Pilih Siswa --</option>';
+    dataSiswa.forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = s.nama;
+      opt.textContent = s.nama;
+      selectSiswa.appendChild(opt);
+    });
+  }
+
+  updateDropdown();
+
+  // Ambil data pembayaran
+  let dataPembayaran = JSON.parse(localStorage.getItem("dataPembayaran")) || [];
+
+  function renderTable() {
+    const tabel = document.getElementById("tabelPembayaran");
+    tabel.innerHTML = "";
+    dataPembayaran.forEach((p, i) => {
+      tabel.innerHTML += `
+        <tr>
+          <td>${i+1}</td>
+          <td>${p.nama}</td>
+          <td>${p.bulan}</td>
+          <td>${p.jumlah.toLocaleString()}</td>
+          <td class="${p.status === 'Lunas' ? 'lunas' : 'belum'}">${p.status}</td>
+          <td><button style="background:red" onclick="hapusPembayaran(${i})">❌ Hapus</button></td>
+        </tr>
+      `;
+    });
+    localStorage.setItem("dataPembayaran", JSON.stringify(dataPembayaran));
+  }
+
+  function simpanPembayaran() {
+    const nama = selectSiswa.value;
+    const bulan = document.getElementById("bulan").value.trim();
+    const jumlah = parseInt(document.getElementById("jumlah").value);
+    const status = document.getElementById("statusBayar").value;
+
+    if (!nama || !bulan || !jumlah) {
+      alert("Semua kolom wajib diisi!");
+      return;
+    }
+
+    dataPembayaran.push({ nama, bulan, jumlah, status });
+    renderTable();
+    resetForm();
+  }
+
+  function hapusPembayaran(i) {
+    if (confirm("Yakin ingin menghapus data ini?")) {
+      dataPembayaran.splice(i,1);
+      renderTable();
+    }
+  }
+
+  function resetForm() {
+    selectSiswa.value = "";
+    document.getElementById("bulan").value = "";
+    document.getElementById("jumlah").value = "";
+    document.getElementById("statusBayar").value = "Lunas";
+  }
+
+  function exportCSV() {
+    if (dataPembayaran.length === 0) { alert("Belum ada data pembayaran untuk diexport!"); return; }
+    const header = ["Nama Siswa","Bulan","Jumlah (Rp)","Status"];
+    const rows = dataPembayaran.map(p=>[p.nama,p.bulan,p.jumlah,p.status]);
+    const csvContent = [header,...rows].map(e=>e.join(",")).join("\n");
+    const blob = new Blob([csvContent],{type:"text/csv;charset=utf-8;"});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "data_pembayaran_bimbel.csv";
+    link.click();
+  }
+
+  function logout() {
+    localStorage.removeItem("username");
+    window.location.href = "login.html";
+  }
+
+  renderTable();
+</script>
+
+</body>
+</html>

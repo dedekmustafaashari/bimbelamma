@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Bimbel AMMA</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #1e40af;
+      --bg: #f9fafc;
+      --text: #1f2937;
+      --card-bg: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      text-align: center;
+      padding: 30px 15px 20px;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+      box-shadow: 0 4px 10px var(--shadow);
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: rgba(255,255,255,0.4);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px var(--shadow);
+      padding: 25px;
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      border-left: 5px solid var(--primary);
+      padding-left: 10px;
+    }
+
+    .about {
+      margin-bottom: 30px;
+    }
+
+    .about p {
+      text-align: justify;
+      margin-top: 10px;
+    }
+
+    .vision-mission {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: #f0f4ff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .card h3 {
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+
+    .contact {
+      text-align: center;
+    }
+
+    .contact p {
+      margin-bottom: 8px;
+    }
+
+    .contact a {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .contact a:hover {
+      background: var(--secondary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    img.logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="portal.html" class="back-btn">⬅ Kembali ke Portal</a>
+    <img src="logo-bimbel.png" alt="Logo Bimbel Pintar" class="logo">
+    <h1>Amanah n Smart Bimbel</h1>
+    <p>“Membangun Generasi Cerdas dan Berakhlak”</p>
+  </header>
+
+  <div class="container">
+    <section class="about">
+      <h2>Tentang Kami</h2>
+      <p>
+        Bimbel AMMA adalah lembaga pendidikan non-formal yang berfokus pada peningkatan prestasi akademik siswa SD, SMP, dan SMA. 
+        Kami berkomitmen memberikan pengajaran berkualitas dengan tenaga pengajar berpengalaman, metode belajar interaktif, dan suasana belajar yang menyenangkan.
+      </p>
+    </section>
+
+    <section class="vision-mission">
+      <div class="card">
+        <h3>🎯 Visi</h3>
+        <p>
+          Menjadi lembaga bimbingan belajar terbaik dalam membentuk generasi unggul yang berprestasi, cerdas, dan berkarakter.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🚀 Misi</h3>
+        <ul>
+          <li>Meningkatkan kualitas pembelajaran secara berkelanjutan.</li>
+          <li>Memberikan pendampingan akademik yang efektif dan menyenangkan.</li>
+          <li>Mendorong siswa mencapai potensi terbaiknya.</li>
+          <li>Membangun hubungan baik antara guru, siswa, dan orang tua.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="contact">
+      <h2>Kontak Kami</h2>
+      <p>📍 Alamat: Jl. Simp Bari Sicincin</p>
+      <p>📞 Telepon: 0852-6424-4503</p>
+      <a href="https://wa.me/6285264244503" target="_blank">Chat via WhatsApp</a>
+    </section>
+  </div>
+
+  <footer>
+    © 2025 Bimbel AMMA | by Dedek Mustafa Ashari
+  </footer>
+</body>
+</html>
